@@ -1,0 +1,425 @@
+@use './colors' as *;
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: 'Quicksand', sans-serif;
+	background-color: var(--background-color);
+	color: var(--text-color);
+}
+
+h1,
+h2,
+h3 {
+	font-family: 'Poppins', sans-serif;
+}
+
+h2 {
+	letter-spacing: 1px;
+}
+
+h2 {
+	margin-bottom: 2em;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: bold;
+}
+
+label {
+	margin-bottom: 10px;
+}
+
+.section-offset {
+  scroll-margin-top: 77px; 
+}
+
+
+.btn-primary {
+	background-color: $main-color2;
+	border-color: $main-color2;
+	transition: background-color 0.3s;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:focus-visible,
+.btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+	background-color: $secondary-color2;
+	border-color: $secondary-color2;
+}
+
+.btn-outline-primary {
+	font-weight: 500;
+	color: $main-color2;
+	border-color: $main-color2;
+	--bs-btn-border-width: 2px;
+	transition: background-color 0.3s;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:focus-visible,
+.btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+	color: $pure-white;
+	background-color: $secondary-color2;
+	border-color: $secondary-color2;
+}
+
+.btn-fixed-width {
+  max-width: 228px;
+  width: 100%;
+}
+
+.card {
+	transition: transform 0.4s;
+}
+
+.card:hover {
+	transform: scale(1.05);
+}
+
+//NAV
+.navbar {
+	text-transform: uppercase;
+
+	background-color: $main-color;
+
+	.nav-link,
+	.fa-bars {
+		font-weight: bold;
+		color: $dark;
+		transition: color 0.4s;
+	}
+
+	.navbar-toggler {
+		padding: 10px 15px;
+	}
+
+	.nav-link:focus,
+	.nav-link:hover,
+	.fa-bars:focus,
+	.fa-bars:hover {
+		color: $light-orange;
+	}
+
+	// nav link active
+	.navbar-nav .nav-link.active,
+	.navbar-nav .nav-link.show {
+		color: $light-orange;
+
+		&:hover {
+			color: $light-orange;
+		}
+	}
+}
+
+// HEADER
+@mixin heroImages($bgImg) {
+	background-image: url($bgImg);
+	background-size: cover;
+	background-position: center;
+
+	&::before {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.3);
+		content: '';
+	}
+}
+
+.header {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100vh;
+	color: white;
+	@include heroImages('../img/header-img-sm.jpg');
+	background-attachment: fixed;
+
+	&__heading {
+		text-transform: uppercase;
+		padding: 0.1em 1em;
+
+		&__text {
+			padding-bottom: 1em;
+		}
+
+		&__btn {
+			margin: 0 1em;
+		}
+	}
+}
+
+.about {
+	&-column {
+		display: flex;
+		justify-content: center;
+	}
+
+	.card {
+		margin-bottom: 1em;
+		width: 220px;
+		background-color: $main-color2;
+
+		p {
+			font-weight: bold;
+		}
+	}
+
+	.container {
+		max-width: 760px;
+	}
+}
+
+// Stories
+.stories {
+	.wrapper {
+		margin: 0 auto;
+		max-width: 1600px;
+	}
+
+	img {
+		filter: brightness(70%);
+	}
+
+	.mobile-img,
+	.desktop-img {
+		object-fit: cover;
+		object-position: center;
+	}
+
+	.mobile-img {
+		height: 75vh;
+		width: auto;
+	}
+
+	.desktop-img {
+		height: 90vh;
+	}
+}
+
+// howToHelp
+.howToHelp {
+
+	&-column {
+		display: flex;
+		justify-content: center;
+	}
+
+	.card {
+		width: 300px;
+
+		&-icon {
+			margin: 0.3em 0;
+			font-size: 4rem;
+			color: $secondary-color2;
+		}
+
+		&-text {
+			font-size: 1.3rem;
+			font-weight: bold;
+		}
+
+		&-btn {
+			margin: 1em;
+			font-size: 1.2rem;
+		}
+	}
+}
+
+// Reviews
+.reviews {
+	background-color: $light-orange;
+}
+
+.swiper {
+	width: 100%;
+	height: auto;
+	padding: 2em;
+}
+
+.swiper-slide {
+	height: auto;
+	width: 18rem;
+	transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	opacity: 1;
+	cursor: pointer;
+
+	.card {
+		background-color: $light-orange2;
+
+		strong {
+			display: block;
+			padding-right: 20px;
+			width: 100%;
+			text-align: right;
+		}
+	}
+}
+
+.swiper-slide.swiper-slide-active {
+	transform: scale(1.05);
+	opacity: 1;
+
+	&:hover {
+		transform: scale(1);
+	}
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+	color: $main-color;
+	transition: color 0.3s, transform 0.3s;
+
+	&:hover {
+		color: $secondary-color;
+		transform: scale(1.15);
+	}
+}
+
+.adoption {
+	.card {
+		max-width: 300px;
+
+		&-col {
+			display: flex;
+			justify-content: center;
+		}
+	}
+}
+
+.donation {
+	height: 100vh;
+	background-color: $light-orange;
+
+	.progress-bar {
+		background-color: $main-color;
+	}
+}
+
+.footer {
+	color: $pure-white;
+	background-color: $pure-dark;
+
+	.container {
+		max-width: 750px;
+	}
+
+	&-icon {
+		font-size: 1.5rem;
+		color: $pure-white;
+		transition: color 0.3s ease-in-out;
+	}
+
+	&-icon:hover {
+		color: $main-color; 
+	}
+
+	&-link {
+		color: $pure-white;
+		text-decoration: none;
+		font-weight: 500;
+		transition: color 0.3s ease-in-out;
+	}
+
+	&-link:hover {
+		color: $main-color; 
+		text-decoration: underline;
+	}
+}
+
+// ------------------------------
+// Media Quries
+// ------------------------------
+
+@media (min-width: 768px) {
+	.howToHelp {
+		.card {
+			height: 480px;
+			width: 320px;
+
+			&-body {
+				display: grid;
+				grid-template-rows: 1fr 1fr auto;
+				grid-template-columns: 1fr;
+				align-items: center;
+			}
+
+			&-title {
+				grid-column: 1;
+				grid-row: 1;
+				align-self: end;
+				margin: 0;
+
+				i {
+					font-size: 6rem;
+				}
+			}
+
+			&-text {
+				grid-column: 1;
+				grid-row: 2;
+			}
+
+			&-btn {
+				grid-column: 1;
+				grid-row: 3;
+				margin-bottom: 2em;
+			}
+		}
+	}
+
+	.swiper {
+		max-width: 1150px;
+	}
+
+	.swiper-button-prev,
+	.swiper-button-next {
+		margin: 0 1.5em;
+	}
+
+	.contact {
+		.border {
+			max-width: 697px;
+		}
+	}
+}
+
+@media (min-width: 992px) {
+	.header {
+		background-image: url('../img/header-img-bg.jpg');
+	}
+
+	.adoption{
+		.row-cols-md-3 > * {
+			max-width: 350px;
+		}
+	}
+
+}
+
+@media (min-width: 1400px) {
+	.header {
+		background-image: url('../img/header-img-exbg.jpg');
+	}
+}

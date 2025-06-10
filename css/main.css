@@ -1,0 +1,353 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Quicksand", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Poppins", sans-serif;
+}
+
+h2 {
+  letter-spacing: 1px;
+}
+
+h2 {
+  margin-bottom: 2em;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+.section-offset {
+  scroll-margin-top: 77px;
+}
+
+.btn-primary {
+  background-color: #FF8C42;
+  border-color: #FF8C42;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:focus-visible,
+.btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+  background-color: #C45A00;
+  border-color: #C45A00;
+}
+
+.btn-outline-primary {
+  font-weight: 500;
+  color: #FF8C42;
+  border-color: #FF8C42;
+  --bs-btn-border-width: 2px;
+  transition: background-color 0.3s;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:focus-visible,
+.btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+  color: #fff;
+  background-color: #C45A00;
+  border-color: #C45A00;
+}
+
+.btn-fixed-width {
+  max-width: 228px;
+  width: 100%;
+}
+
+.card {
+  transition: transform 0.4s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.navbar {
+  text-transform: uppercase;
+  background-color: #F59E0B;
+}
+.navbar .nav-link,
+.navbar .fa-bars {
+  font-weight: bold;
+  color: #010101;
+  transition: color 0.4s;
+}
+.navbar .navbar-toggler {
+  padding: 10px 15px;
+}
+.navbar .nav-link:focus,
+.navbar .nav-link:hover,
+.navbar .fa-bars:focus,
+.navbar .fa-bars:hover {
+  color: #FDE68A;
+}
+.navbar .navbar-nav .nav-link.active,
+.navbar .navbar-nav .nav-link.show {
+  color: #FDE68A;
+}
+.navbar .navbar-nav .nav-link.active:hover,
+.navbar .navbar-nav .nav-link.show:hover {
+  color: #FDE68A;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  color: white;
+  background-image: url("../img/header-img-sm.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.header::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  content: "";
+}
+.header__heading {
+  text-transform: uppercase;
+  padding: 0.1em 1em;
+}
+.header__heading__text {
+  padding-bottom: 1em;
+}
+.header__heading__btn {
+  margin: 0 1em;
+}
+
+.about-column {
+  display: flex;
+  justify-content: center;
+}
+.about .card {
+  margin-bottom: 1em;
+  width: 220px;
+  background-color: #FF8C42;
+}
+.about .card p {
+  font-weight: bold;
+}
+.about .container {
+  max-width: 760px;
+}
+
+.stories .wrapper {
+  margin: 0 auto;
+  max-width: 1600px;
+}
+.stories img {
+  filter: brightness(70%);
+}
+.stories .mobile-img,
+.stories .desktop-img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+.stories .mobile-img {
+  height: 75vh;
+  width: auto;
+}
+.stories .desktop-img {
+  height: 90vh;
+}
+
+.howToHelp-column {
+  display: flex;
+  justify-content: center;
+}
+.howToHelp .card {
+  width: 300px;
+}
+.howToHelp .card-icon {
+  margin: 0.3em 0;
+  font-size: 4rem;
+  color: #C45A00;
+}
+.howToHelp .card-text {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.howToHelp .card-btn {
+  margin: 1em;
+  font-size: 1.2rem;
+}
+
+.reviews {
+  background-color: #FDE68A;
+}
+
+.swiper {
+  width: 100%;
+  height: auto;
+  padding: 2em;
+}
+
+.swiper-slide {
+  height: auto;
+  width: 18rem;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 1;
+  cursor: pointer;
+}
+.swiper-slide .card {
+  background-color: #FFB347;
+}
+.swiper-slide .card strong {
+  display: block;
+  padding-right: 20px;
+  width: 100%;
+  text-align: right;
+}
+
+.swiper-slide.swiper-slide-active {
+  transform: scale(1.05);
+  opacity: 1;
+}
+.swiper-slide.swiper-slide-active:hover {
+  transform: scale(1);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #F59E0B;
+  transition: color 0.3s, transform 0.3s;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  color: #D97706;
+  transform: scale(1.15);
+}
+
+.adoption .card {
+  max-width: 300px;
+}
+.adoption .card-col {
+  display: flex;
+  justify-content: center;
+}
+
+.donation {
+  height: 100vh;
+  background-color: #FDE68A;
+}
+.donation .progress-bar {
+  background-color: #F59E0B;
+}
+
+.footer {
+  color: #fff;
+  background-color: #2e2e2e;
+}
+.footer .container {
+  max-width: 750px;
+}
+.footer-icon {
+  font-size: 1.5rem;
+  color: #fff;
+  transition: color 0.3s ease-in-out;
+}
+.footer-icon:hover {
+  color: #F59E0B;
+}
+.footer-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+.footer-link:hover {
+  color: #F59E0B;
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .howToHelp .card {
+    height: 480px;
+    width: 320px;
+  }
+  .howToHelp .card-body {
+    display: grid;
+    grid-template-rows: 1fr 1fr auto;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+  .howToHelp .card-title {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+    margin: 0;
+  }
+  .howToHelp .card-title i {
+    font-size: 6rem;
+  }
+  .howToHelp .card-text {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .howToHelp .card-btn {
+    grid-column: 1;
+    grid-row: 3;
+    margin-bottom: 2em;
+  }
+  .swiper {
+    max-width: 1150px;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    margin: 0 1.5em;
+  }
+  .contact .border {
+    max-width: 697px;
+  }
+}
+@media (min-width: 992px) {
+  .header {
+    background-image: url("../img/header-img-bg.jpg");
+  }
+  .adoption .row-cols-md-3 > * {
+    max-width: 350px;
+  }
+}
+@media (min-width: 1400px) {
+  .header {
+    background-image: url("../img/header-img-exbg.jpg");
+  }
+}/*# sourceMappingURL=main.css.map */
