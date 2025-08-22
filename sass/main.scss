@@ -36,9 +36,8 @@ label {
 }
 
 .section-offset {
-  scroll-margin-top: 77px; 
+	scroll-margin-top: 77px;
 }
-
 
 .btn-primary {
 	background-color: $main-color2;
@@ -80,8 +79,8 @@ label {
 }
 
 .btn-fixed-width {
-  max-width: 228px;
-  width: 100%;
+	max-width: 228px;
+	width: 100%;
 }
 
 .card {
@@ -120,6 +119,19 @@ label {
 	.navbar-nav .nav-link.active,
 	.navbar-nav .nav-link.show {
 		color: $light-orange;
+
+		&:hover {
+			color: $light-orange;
+		}
+	}
+
+	.navbar-brand {
+		transition: color 0.4s;
+
+		&:focus {
+			color: $light-orange;
+			outline: 4px solid;
+		}
 
 		&:hover {
 			color: $light-orange;
@@ -218,9 +230,16 @@ label {
 	}
 }
 
+.carousel-control-prev:focus-visible,
+.carousel-control-next:focus-visible {
+	outline-offset: 2px;
+	transition: outline 0.2s;
+	outline: 2px solid red;
+	border-radius: 8px;
+}
+
 // howToHelp
 .howToHelp {
-
 	&-column {
 		display: flex;
 		justify-content: center;
@@ -253,9 +272,9 @@ label {
 }
 
 .swiper {
+	padding: 2em;
 	width: 100%;
 	height: auto;
-	padding: 2em;
 }
 
 .swiper-slide {
@@ -280,10 +299,6 @@ label {
 .swiper-slide.swiper-slide-active {
 	transform: scale(1.05);
 	opacity: 1;
-
-	&:hover {
-		transform: scale(1);
-	}
 }
 
 .swiper-button-prev,
@@ -332,7 +347,7 @@ label {
 	}
 
 	&-icon:hover {
-		color: $main-color; 
+		color: $main-color;
 	}
 
 	&-link {
@@ -340,11 +355,25 @@ label {
 		text-decoration: none;
 		font-weight: 500;
 		transition: color 0.3s ease-in-out;
+
+		&:hover {
+			color: $main-color;
+			text-decoration: underline;
+		}
 	}
 
-	&-link:hover {
-		color: $main-color; 
-		text-decoration: underline;
+	&-link:focus,
+	&-icon-link:focus {
+		outline: 3px solid $main-color;
+	}
+
+	&-logo {
+		&:hover {
+			.footer-logo-text {
+				color: $main-color;
+				transition: color 0.3s ease-in-out;
+			}
+		}
 	}
 }
 
@@ -410,12 +439,11 @@ label {
 		background-image: url('../img/header-img-bg.jpg');
 	}
 
-	.adoption{
+	.adoption {
 		.row-cols-md-3 > * {
 			max-width: 350px;
 		}
 	}
-
 }
 
 @media (min-width: 1400px) {

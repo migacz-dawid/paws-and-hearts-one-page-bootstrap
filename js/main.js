@@ -25,6 +25,54 @@ const progressBar = document.getElementById('donation-progress')
 const donationSection = document.getElementById('donation')
 
 let hasAnimated = false
+const trapFocusMobile = () => {
+    const navbar = document.querySelector('.navbar-collapse')
+    const toggler = document.querySelector('.navbar-toggler')
+
+    const focusableElements = [
+        toggler,
+        ...Array.from(navbar.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')),
+    ]
+
+    if (focusableElements.length === 0) return
+
+    const firstEl = focusableElements[0]
+    const lastEl = focusableElements[focusableElements.length - 1]
+
+    const handleKeyDown = e => {
+        if (e.key === 'Tab') {
+            if (e.shiftKey && document.activeElement === firstEl) {
+                e.preventDefault()
+                lastEl.focus()
+            } else if (document.activeElement === lastEl) {
+                e.preventDefault()
+                firstEl.focus()
+            }
+        } else if (e.key === 'Escape') {
+            const bsCollapse = bootstrap.Collapse.getInstance(navbar)
+            if (bsCollapse) bsCollapse.hide()
+            toggler.focus()
+        }
+    }
+
+    navbar.addEventListener('keydown', handleKeyDown)
+
+    navbar._removeTrapFocus = () => {
+        navbar.removeEventListener('keydown', handleKeyDown)
+    }
+}
+
+// When menu is opened
+navbar.addEventListener('shown.bs.collapse', () => {
+    trapFocusMobile()
+})
+
+// When menu is closed
+navbar.addEventListener('hidden.bs.collapse', () => {
+	if (typeof navbar._removeTrapFocus === 'function') {
+		navbar._removeTrapFocus()
+	}
+})
 
 //-----------------------------------------------------
 // Close mobile menu, link click
@@ -52,15 +100,15 @@ const handleDocumentClick = event => {
 
 //-----------------------------------------------------
 // AboutUs Counter
+const isMobile = () => window.innerWidth < 768
+
 const options = {
-	// rootMargin: '-100px'
-	threshold: 0.75,
-	rootMargin: '0px'
+	threshold: isMobile() ? 0.5 : 0.75,
+	rootMargin: '0px',
 }
 
 const startCounter = (entries, observer) => {
 	if (entries[0].isIntersecting) {
-
 		counterItems.forEach(counter => {
 			const updateCounter = () => {
 				const finalNumber = parseInt(counter.getAttribute('data-target'))
@@ -77,10 +125,9 @@ const startCounter = (entries, observer) => {
 			updateCounter()
 		})
 
-		observer.unobserve(entries[0].target) 
+		observer.unobserve(entries[0].target)
 	}
 }
-
 
 //-----------------------------------------------------
 //Donation Counter
@@ -107,7 +154,7 @@ const handleIntersection = (entries, observer) => {
 }
 
 const observerOptions = {
-	threshold: 0.5
+	threshold: 0.5,
 }
 
 //-----------------------------------------------------
@@ -125,37 +172,114 @@ const swiper = new Swiper('.swiper', {
 		delay: 3000,
 		disableOnInteraction: false,
 	},
+	a11y: {
+		enabled: true,
+	},
+	keyboard: {
+		enabled: true,
+		onlyInViewport: true,
+	},
+	watchSlidesProgress: true,
+	watchSlidesVisibility: true,
 })
 
 //-----------------------------------------------------
-//MODAL
-allModals.forEach(modal => {
-	let triggerButton = null
+//MODALS management functions
+const focusableSelectors = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
 
-	const handleShow = event => {
-		triggerButton = event.relatedTarget
-	}
+function trapFocus(e, focusableEls) {
+	if (e.key !== 'Tab') return
 
-	const handleShown = () => {
-		setTimeout(() => {
-			if (triggerButton) {
-				triggerButton.blur()
-				triggerButton = null
-				modal.removeAttribute('inert')
-			}
-		}, 400)
-	}
+	const firstEl = focusableEls[0]
+	const lastEl = focusableEls[focusableEls.length - 1]
 
-	const handleHide = () => {
-		if (document.activeElement instanceof HTMLElement) {
-			document.activeElement.blur()
-			modal.setAttribute('inert', '')
+	if (e.shiftKey) {
+		if (document.activeElement === firstEl) {
+			e.preventDefault()
+			lastEl.focus()
+		}
+	} else {
+		if (document.activeElement === lastEl) {
+			e.preventDefault()
+			firstEl.focus()
 		}
 	}
+}
 
-	modal.addEventListener('show.bs.modal', handleShow)
-	modal.addEventListener('shown.bs.modal', handleShown)
-	modal.addEventListener('hide.bs.modal', handleHide)
+// ESC closes modal
+function setupEscapeHandler(modal) {
+	const handleEscape = e => {
+		if (e.key === 'Escape' || e.key === 'Esc') {
+			const bsModal = bootstrap.Modal.getInstance(modal)
+			if (bsModal) {
+				bsModal.hide()
+			}
+		}
+	}
+	document.addEventListener('keydown', handleEscape)
+	return handleEscape
+}
+
+// Open modal
+function handleShow(event, state) {
+	state.triggerButton = event.relatedTarget
+	state.lastFocusedElement = document.activeElement
+}
+
+// Close modal
+function handleShown(modal, state) {
+	state.focusableEls = modal.querySelectorAll(focusableSelectors)
+
+	if (state.focusableEls.length) {
+		state.focusableEls[0].focus()
+	}
+
+	state.trapFocusHandler = e => trapFocus(e, state.focusableEls)
+	modal.addEventListener('keydown', state.trapFocusHandler)
+
+	modal.removeAttribute('inert')
+
+	setTimeout(() => {
+		if (state.triggerButton) {
+			state.triggerButton.blur()
+			state.triggerButton = null
+		}
+	}, 400)
+
+	state.escapeHandler = setupEscapeHandler(modal)
+}
+
+// Close modal
+function handleHide(modal, state) {
+	if (document.activeElement instanceof HTMLElement) {
+		document.activeElement.blur()
+	}
+
+	modal.setAttribute('inert', '')
+
+	modal.removeEventListener('keydown', state.trapFocusHandler)
+
+	if (state.lastFocusedElement) {
+		state.lastFocusedElement.focus()
+		state.lastFocusedElement = null
+	}
+
+	document.removeEventListener('keydown', state.escapeHandler)
+}
+
+// Set up modals
+document.querySelectorAll('.modal').forEach(modal => {
+	const state = {
+		triggerButton: null,
+		lastFocusedElement: null,
+		focusableEls: [],
+		trapFocusHandler: null,
+		escapeHandler: null,
+	}
+
+	modal.addEventListener('show.bs.modal', e => handleShow(e, state))
+	modal.addEventListener('shown.bs.modal', () => handleShown(modal, state))
+	modal.addEventListener('hide.bs.modal', () => handleHide(modal, state))
 })
 
 
@@ -242,6 +366,7 @@ const handleCurrentYear = () => {
 	footerYear.innerText = year
 }
 handleCurrentYear()
+//-----------------------------------------------------
 
 // Close menu, clicking outside of it
 document.addEventListener('click', handleDocumentClick)
@@ -256,3 +381,5 @@ sendBtn.addEventListener('click', e => {
 	e.preventDefault() // Don't send email. Demonstration purposes
 	validateForm(e)
 })
+
+//---------------------------------

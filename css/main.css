@@ -116,6 +116,16 @@ label {
 .navbar .navbar-nav .nav-link.show:hover {
   color: #FDE68A;
 }
+.navbar .navbar-brand {
+  transition: color 0.4s;
+}
+.navbar .navbar-brand:focus {
+  color: #FDE68A;
+  outline: 4px solid;
+}
+.navbar .navbar-brand:hover {
+  color: #FDE68A;
+}
 
 .header {
   position: relative;
@@ -189,6 +199,14 @@ label {
   height: 90vh;
 }
 
+.carousel-control-prev:focus-visible,
+.carousel-control-next:focus-visible {
+  outline-offset: 2px;
+  transition: outline 0.2s;
+  outline: 2px solid red;
+  border-radius: 8px;
+}
+
 .howToHelp-column {
   display: flex;
   justify-content: center;
@@ -215,9 +233,9 @@ label {
 }
 
 .swiper {
+  padding: 2em;
   width: 100%;
   height: auto;
-  padding: 2em;
 }
 
 .swiper-slide {
@@ -240,9 +258,6 @@ label {
 .swiper-slide.swiper-slide-active {
   transform: scale(1.05);
   opacity: 1;
-}
-.swiper-slide.swiper-slide-active:hover {
-  transform: scale(1);
 }
 
 .swiper-button-prev,
@@ -296,6 +311,13 @@ label {
 .footer-link:hover {
   color: #F59E0B;
   text-decoration: underline;
+}
+.footer-link:focus, .footer-icon-link:focus {
+  outline: 3px solid #F59E0B;
+}
+.footer-logo:hover .footer-logo-text {
+  color: #F59E0B;
+  transition: color 0.3s ease-in-out;
 }
 
 @media (min-width: 768px) {
