@@ -171,14 +171,15 @@ label {
 	&__heading {
 		text-transform: uppercase;
 		padding: 0.1em 1em;
+	}
 
-		&__text {
-			padding-bottom: 1em;
-		}
+	&__text {
+		padding: 0 1em 1em;
+		text-align: center;
+	}
 
-		&__btn {
-			margin: 0 1em;
-		}
+	&__btn {
+		margin: 0 0.1em;
 	}
 }
 

@@ -154,11 +154,12 @@ label {
   text-transform: uppercase;
   padding: 0.1em 1em;
 }
-.header__heading__text {
-  padding-bottom: 1em;
+.header__text {
+  padding: 0 1em 1em;
+  text-align: center;
 }
-.header__heading__btn {
-  margin: 0 1em;
+.header__btn {
+  margin: 0 0.1em;
 }
 
 .about-column {
